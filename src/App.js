@@ -5,11 +5,19 @@ import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './authRoutes/PrivateRoute';
 import Signin from './pages/Signin';
 import Home from './pages/Home';
+import PublicRoute from './authRoutes/PublicRoute';
 
 function App() {
   return (
     <Routes>
-      <Route path="/signin" element={<Signin />} />
+      <Route
+        path="/signin"
+        element={
+          <PublicRoute>
+            <Signin />
+          </PublicRoute>
+        }
+      />
       <Route
         path="/"
         element={
