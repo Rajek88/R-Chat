@@ -2,9 +2,45 @@ import { Icon } from '@rsuite/icons';
 import React from 'react';
 import { Button, Col, Container, Grid, Panel, Row } from 'rsuite';
 import { BsGoogle } from 'react-icons/bs';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { ref, serverTimestamp, set } from 'firebase/database';
+import { auth, database } from '../misc/firebase';
+import { Notify } from '../utils/Notify';
 
-function onGoogleSignIn() {}
 const Signin = () => {
+  const onGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      // Start a sign in process for an unauthenticated user.
+      const result = await signInWithPopup(auth, provider);
+      // This will trigger a full page popup on your app
+      // The signed-in user info.
+      const { user } = result;
+      // console.log('User : ', user);
+      const isNewUser =
+        user.metadata.creationTime === user.metadata.lastSignInTime;
+      // if the user is new
+      if (isNewUser) {
+        set(ref(database, `/profiles/${user.uid}`), {
+          name: user.displayName,
+          createdAt: serverTimestamp(),
+          photoURL: user.photoURL,
+        });
+      }
+      return Notify({
+        title: 'Welcome !',
+        message: 'Logged in successfully',
+        type: 'success',
+      });
+    } catch (error) {
+      return Notify({
+        title: 'Error !',
+        message: `Error Logging in : ${error}`,
+        type: 'danger',
+      });
+    }
+  };
+
   return (
     <Container>
       <Grid className="mt-page">
