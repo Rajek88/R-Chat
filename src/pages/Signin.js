@@ -28,7 +28,7 @@ const Signin = () => {
         });
       }
       return Notify({
-        title: 'Welcome !',
+        title: `Welcome ${user.displayName}!`,
         message: 'Logged in successfully',
         type: 'success',
       });
