@@ -1,4 +1,5 @@
-import { off, onValue, ref } from 'firebase/database';
+/* eslint-disable arrow-body-style */
+import { off, onValue, ref } from '@firebase/database';
 import React, {
   createContext,
   useContext,
@@ -9,10 +10,11 @@ import React, {
 import { auth, database } from '../misc/firebase';
 
 const ProfileContext = createContext();
-
 export const ProfileProvider = ({ children }) => {
-  const [profile, setProfile] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [userProfile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  //   when the component mounts , use useEffect to get user data
 
   useEffect(() => {
     const authUnsubscribe = auth.onAuthStateChanged(authObj => {
@@ -51,17 +53,18 @@ export const ProfileProvider = ({ children }) => {
     return () => {
       authUnsubscribe();
     };
-  }, []);
+  }, [userProfile, loading]);
 
-  //   Toprevents non-stable values (i.e. object identities) from being used as a value for Context.Provider.
+  // Prevent react contexts from taking non-stable values (react/jsx-no-constructed-context-values)
+  // This rule prevents non-stable values (i.e. object identities) from being used as a value for Context.Provider.
+
   const isLoading = useMemo(() => ({ isLoading: loading }), [loading]);
-  const userProfile = useMemo(() => ({ userProfile: profile }), [profile]);
+  const profile = useMemo(() => ({ profile: userProfile }), [userProfile]);
   return (
-    <ProfileContext.Provider value={(isLoading, userProfile)}>
+    <ProfileContext.Provider value={(isLoading, profile)}>
       {children}
     </ProfileContext.Provider>
   );
 };
 
-// create a hook to use this ProfileContext
 export const useProfile = () => useContext(ProfileContext);
