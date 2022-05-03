@@ -9,7 +9,7 @@ import { getDatabase } from 'firebase/database';
 const firebaseConfig = {
   apiKey: 'AIzaSyASEGJBCoJEtqIBPH9MePzE9VzdEJgJLkM',
   authDomain: 'r-chat-27c43.firebaseapp.com',
-  databaseUrl:
+  databaseURL:
     'https://r-chat-27c43-default-rtdb.asia-southeast1.firebasedatabase.app',
   projectId: 'r-chat-27c43',
   storageBucket: 'r-chat-27c43.appspot.com',
