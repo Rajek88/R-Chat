@@ -13,7 +13,7 @@ function PrivateRoute({ children }) {
       </Container>
     );
   }
-  return !profile && !isLoading ? children : <Navigate to="/signin" />;
+  return !profile && !isLoading ? <Navigate to="/signin" /> : children;
 }
 
 export default PrivateRoute;
