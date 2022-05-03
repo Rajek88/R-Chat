@@ -6,27 +6,30 @@ import PrivateRoute from './authRoutes/PrivateRoute';
 import Signin from './pages/Signin';
 import Home from './pages/Home';
 import PublicRoute from './authRoutes/PublicRoute';
+import { ProfileProvider } from './context/profile.context';
 
 function App() {
   return (
-    <Routes>
-      <Route
-        path="/signin"
-        element={
-          <PublicRoute>
-            <Signin />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/"
-        element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        }
-      />
-    </Routes>
+    <ProfileProvider>
+      <Routes>
+        <Route
+          path="/signin"
+          element={
+            <PublicRoute>
+              <Signin />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </ProfileProvider>
   );
 }
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { useProfile } from '../context/profile.context';
 
 function PublicRoute({ children }) {
-  const auth = false;
-  //   if auth is false then redirect to children i.e. signin page,
+  const userProfile = useProfile();
+  //   if profile is null then redirect to children i.e. signin page,
   //   else navigate to home i.e. "/"
-  return !auth ? children : <Navigate to="/" />;
+  return !userProfile ? children : <Navigate to="/" />;
 }
 
 export default PublicRoute;
