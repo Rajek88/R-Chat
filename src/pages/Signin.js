@@ -1,7 +1,5 @@
-import { Icon } from '@rsuite/icons';
 import React from 'react';
-import { Button, Col, Container, Grid, Panel, Row } from 'rsuite';
-import { BsGoogle } from 'react-icons/bs';
+import { Button, Col, Container, Grid, Icon, Panel, Row } from 'rsuite';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { ref, serverTimestamp, set } from 'firebase/database';
 import { auth, database } from '../misc/firebase';
@@ -61,8 +59,7 @@ const Signin = () => {
                   appearance="primary"
                   onClick={onGoogleSignIn}
                 >
-                  <Icon as={BsGoogle} />
-                  &nbsp; Continue with Google
+                  <Icon icon="google" /> Continue with Google
                 </Button>
               </div>
             </Panel>

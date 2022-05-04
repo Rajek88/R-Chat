@@ -1,7 +1,6 @@
-import { Dashboard } from '@rsuite/icons';
 import { signOut } from 'firebase/auth';
 import React, { useCallback } from 'react';
-import { Button, Drawer } from 'rsuite';
+import { Button, Drawer, Icon } from 'rsuite';
 import DashboardContainer from '.';
 import { useModalState, useMediaQuery } from '../../misc/custom-hooks';
 import { auth } from '../../misc/firebase';
@@ -23,14 +22,9 @@ const DashboardToggle = () => {
   return (
     <>
       <Button block color="blue" appearance="primary" onClick={open}>
-        <Dashboard /> Dashboard
+        <Icon icon="dashboard" /> Dashboard
       </Button>
-      <Drawer
-        size={!isMobile ? 'xs' : 'full'}
-        open={isOpen}
-        onClose={close}
-        placement="left"
-      >
+      <Drawer full={isMobile} show={isOpen} onHide={close} placement="left">
         <DashboardContainer onSignOut={onSignOut} />
       </Drawer>
     </>

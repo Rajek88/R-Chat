@@ -1,10 +1,15 @@
 // import { Exit } from '@rsuite/icons';
 import React from 'react';
-import { Button, Drawer } from 'rsuite';
+import { Button, Divider, Drawer } from 'rsuite';
 import { useProfile } from '../../context/profile.context';
+import EditableInputs from './EditableInputs';
 
 const DashboardContainer = ({ onSignOut }) => {
   const { profile } = useProfile();
+  const onSave = newData => {
+    // eslint-disable-next-line no-console
+    console.log(newData);
+  };
   return (
     <>
       <Drawer.Header>
@@ -12,12 +17,19 @@ const DashboardContainer = ({ onSignOut }) => {
       </Drawer.Header>
       <Drawer.Body>
         <h4>Hey ! {profile.name}</h4>
-        <Drawer.Actions>
-          <Button block color="red" appearance="primary" onClick={onSignOut}>
-            Logout
-          </Button>
-        </Drawer.Actions>
+        <Divider />
+        <EditableInputs
+          name="nickname"
+          initialValue={profile.name}
+          onSave={onSave}
+          label={<h6 className="mb-2">Nickname</h6>}
+        />
       </Drawer.Body>
+      <Drawer.Footer>
+        <Button block color="red" appearance="primary" onClick={onSignOut}>
+          Logout
+        </Button>
+      </Drawer.Footer>
     </>
   );
 };
