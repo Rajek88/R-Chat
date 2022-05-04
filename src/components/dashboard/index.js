@@ -1,4 +1,3 @@
-// import { Exit } from '@rsuite/icons';
 import React from 'react';
 import { Button, Divider, Drawer } from 'rsuite';
 import { useProfile } from '../../context/profile.context';
